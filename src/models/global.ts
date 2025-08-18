@@ -57,3 +57,9 @@ export interface AnimeDetails {
     title: string;
     type: string;
 }
+
+// API Response Anime
+export interface AnimeDetailsApiResponse {
+    status: string;
+    data: AnimeDetails;
+}

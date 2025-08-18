@@ -1,4 +1,7 @@
-import AnimeDetailsPageComponent from "./component";
+import Image from "next/image";
+import Link from "next/link";
+import { Card } from "@/components";
+import { AnimeDetailsApiResponse } from "@/models/global";
 
 export default async function AnimeDetailsPage({
     params,
@@ -9,7 +12,201 @@ export default async function AnimeDetailsPage({
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/anime/${anime_slug}`
     );
-    const datas = await response.json();
+    const responseJson: AnimeDetailsApiResponse = await response.json();
+    const data = responseJson.data;
 
-    return <AnimeDetailsPageComponent data={datas.data} />;
+    return (
+        <div className="pb-20 pt-28 px-4 md:px-16 min-h-svh w-full">
+            <div className="flex flex-col lg:flex-row justify-between gap-10">
+                <div className="flex-1 space-y-4 order-2 lg:order-1">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-0">
+                        <div className="space-y-1">
+                            <h1 className="text-xl md:text-2xl font-bold text-center md:text-left">
+                                {data.title}
+                            </h1>
+                            <p className="text-black/70 text-sm text-center md:text-left">
+                                {data.japanese_title}
+                            </p>
+                        </div>
+                        <p className="text-black/70 text-center md:text-right">
+                            Release: {data.release_date}
+                        </p>
+                    </div>
+                    <div>
+                        <h2 className="text-lg font-semibold">Synopsis</h2>
+                        <p>{data.synopsis ? data.synopsis : "-"}</p>
+                    </div>
+                    <div>
+                        <h2 className="text-lg font-semibold">Genres</h2>
+                        <div className="flex gap-2 flex-wrap">
+                            {data.genres.map((genre, index) => (
+                                <div
+                                    key={index}
+                                    className="rounded bg-quaternary py-2 px-4"
+                                >
+                                    <p>{genre.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <h2 className="text-lg font-semibold">
+                            Other Information
+                        </h2>
+                        <div className="flex gap-2 flex-wrap">
+                            <div className="rounded bg-quaternary py-2 px-4 flex items-center gap-2">
+                                <div className="space-x-1 flex items-center">
+                                    <Image
+                                        src="/star.svg"
+                                        alt="star icon"
+                                        width={16}
+                                        height={16}
+                                    />
+                                    <span>:</span>
+                                </div>
+                                <p>{data.rating ? data.rating : "-"}</p>
+                            </div>
+                            <div className="rounded bg-quaternary py-2 px-4 flex items-center gap-2">
+                                <div className="space-x-1 flex items-center">
+                                    <Image
+                                        src="/tv.svg"
+                                        alt="type icon"
+                                        width={16}
+                                        height={16}
+                                    />
+                                    <span>:</span>
+                                </div>
+                                <p>{data.type}</p>
+                            </div>
+                            <div className="rounded bg-quaternary py-2 px-4 flex items-center gap-2">
+                                <div className="space-x-1 flex items-center">
+                                    <Image
+                                        src="/file.svg"
+                                        alt="episode icon"
+                                        width={16}
+                                        height={16}
+                                        className="text-black"
+                                    />
+                                    <span>:</span>
+                                </div>
+                                <p>
+                                    {data.episode_count === "Unknown"
+                                        ? "- Episode"
+                                        : data.episode_count + " Episode"}
+                                </p>
+                            </div>
+                            <div className="rounded bg-quaternary py-2 px-4 flex items-center gap-2">
+                                <div className="space-x-1 flex items-center">
+                                    <Image
+                                        src={
+                                            data.status === "Ongoing"
+                                                ? "/flash.svg"
+                                                : data.status === "Completed"
+                                                ? "/check.svg"
+                                                : "/x.svg"
+                                        }
+                                        alt="status icon"
+                                        width={16}
+                                        height={16}
+                                        className="text-black"
+                                    />
+                                    <span>:</span>
+                                </div>
+                                <p>{data.status}</p>
+                            </div>
+                            <div className="rounded bg-quaternary py-2 px-4 flex items-center gap-2">
+                                <div className="space-x-1 flex items-center">
+                                    <Image
+                                        src="/clock.svg"
+                                        alt="duration icon"
+                                        width={16}
+                                        height={16}
+                                        className="text-black"
+                                    />
+                                    <span>:</span>
+                                </div>
+                                <p>{data.duration}</p>
+                            </div>
+                            <div className="rounded bg-quaternary py-2 px-4 flex items-center gap-2">
+                                <div className="space-x-1 flex items-center">
+                                    <Image
+                                        src="/chromecast.svg"
+                                        alt="studio icon"
+                                        width={16}
+                                        height={16}
+                                        className="text-black"
+                                    />
+                                    <span>:</span>
+                                </div>
+                                <p>{data.studio}</p>
+                            </div>
+                            <div className="rounded bg-quaternary py-2 px-4 flex items-center gap-2">
+                                <div className="space-x-1 flex items-center">
+                                    <Image
+                                        src="/user-profile.svg"
+                                        alt="produser icon"
+                                        width={16}
+                                        height={16}
+                                        className="text-black"
+                                    />
+                                    <span>:</span>
+                                </div>
+                                <p>{data.produser}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="mx-auto lg:mx-0 order-1 lg:order-2">
+                    <Image
+                        src={data.poster}
+                        alt={`${data.title} poster`}
+                        width={350}
+                        height={350}
+                        className="w-64 h-auto md:w-[350px] md:h-auto rounded shadow-xl"
+                        priority
+                    />
+                </div>
+            </div>
+            <div className="space-y-1 mt-4">
+                <h2 className="text-lg font-semibold">Episodes</h2>
+                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4">
+                    {data.episode_lists.map((episode, index) => (
+                        <Link
+                            href={`${anime_slug}/episode/${index + 1}`}
+                            key={episode.slug}
+                            className="rounded bg-secondary flex items-center justify-center h-10 border hover:bg-quaternary transition-colors"
+                        >
+                            {index + 1}
+                        </Link>
+                    ))}
+                </div>
+            </div>
+            <div className="space-y-1 mt-4">
+                <h2 className="text-lg font-semibold">Batch</h2>
+                {data.batch ? (
+                    <Link
+                        href={data.batch ? data.batch.slug : "#"}
+                        className={`rounded bg-secondary px-4 h-10 flex w-32 items-center justify-center border hover:bg-quaternary transition-colors`}
+                    >
+                        Click here
+                    </Link>
+                ) : (
+                    <p className="px-4">-</p>
+                )}
+            </div>
+            <div className="space-y-1 mt-4">
+                <h2 className="text-lg font-semibold">Recommendations</h2>
+                <div className="flex gap-4 overflow-x-auto pb-4">
+                    {data.recommendations.map((recommendation) => (
+                        <div
+                            key={recommendation.slug}
+                            className="flex-shrink-0"
+                        >
+                            <Card data={recommendation} />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
 }

@@ -2,10 +2,13 @@ import { HomeAnimeSection } from "@/components";
 import Image from "next/image";
 
 export async function OngoingAnimeDataFetcher() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/home`, {
-        cache: "no-store",
-    });
-    const data = await res.json();
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/home`,
+        {
+            cache: "no-store",
+        }
+    );
+    const data = await response.json();
 
     return (
         <HomeAnimeSection
@@ -16,10 +19,13 @@ export async function OngoingAnimeDataFetcher() {
 }
 
 export async function CompletedAnimeDataFetcher() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/home`, {
-        cache: "no-store",
-    });
-    const data = await res.json();
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/home`,
+        {
+            cache: "no-store",
+        }
+    );
+    const data = await response.json();
 
     return (
         <HomeAnimeSection

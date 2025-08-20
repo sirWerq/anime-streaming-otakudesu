@@ -11,6 +11,8 @@ export interface CardAnimeHome {
     last_release_date?: string;
     otakudesu_url?: string;
     release_date?: string;
+    genres?: Genre[];
+    status?: string;
 }
 
 export interface AnimeDetails {
@@ -108,4 +110,12 @@ export interface ApiListResponse {
     status: string;
     data: CardAnimeHome[];
     pagination: PaginationData;
+}
+
+export interface HomeApiResponse {
+    status: string;
+    data: {
+        ongoing_anime: CardAnimeHome[];
+        complete_anime: CardAnimeHome[];
+    };
 }

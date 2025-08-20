@@ -16,7 +16,7 @@ export default function Pagination({
             <Link
                 href={`${
                     data.has_previous_page
-                        ? `http://localhost:3000/${route}?page=${
+                        ? `/${route}?page=${
                               data.current_page <= 1 ? 1 : data.current_page - 1
                           }`
                         : "#"
@@ -39,7 +39,7 @@ export default function Pagination({
             {data.last_visible_page <= 5 || page <= 4
                 ? [...Array(5)].map((_, i) => (
                       <Link
-                          href={`http://localhost:3000/${route}?page=${i + 1}`}
+                          href={`/${route}?page=${i + 1}`}
                           key={i}
                           className={`${
                               page === i + 1 ? "text-yellow-600" : "text-black"
@@ -53,7 +53,7 @@ export default function Pagination({
                       const pageNumber = data.last_visible_page - 4 + i;
                       return (
                           <Link
-                              href={`http://localhost:3000/${route}?page=${pageNumber}`}
+                              href={`/${route}?page=${pageNumber}`}
                               key={pageNumber}
                               className={`${
                                   page === pageNumber
@@ -68,7 +68,7 @@ export default function Pagination({
                 : [...Array(7)].map((_, i) =>
                       i === 0 ? (
                           <Link
-                              href={`http://localhost:3000/${route}?page=1`}
+                              href={`/${route}?page=1`}
                               key={i}
                               className="rounded-full bg-secondary w-10 h-10 flex items-center justify-center"
                           >
@@ -76,7 +76,7 @@ export default function Pagination({
                           </Link>
                       ) : i === 6 ? (
                           <Link
-                              href={`http://localhost:3000/${route}?page=${data.last_visible_page}`}
+                              href={`/${route}?page=${data.last_visible_page}`}
                               key={i}
                               className="rounded-full bg-secondary w-10 h-10 flex items-center justify-center"
                           >
@@ -84,7 +84,7 @@ export default function Pagination({
                           </Link>
                       ) : i === 1 ? (
                           <Link
-                              href={`http://localhost:3000/${route}?page=${
+                              href={`/${route}?page=${
                                   page - 5 <= 1 ? 1 : page - 5
                               }`}
                               key={i}
@@ -94,7 +94,7 @@ export default function Pagination({
                           </Link>
                       ) : i === 5 ? (
                           <Link
-                              href={`http://localhost:3000/${route}?page=${
+                              href={`/${route}?page=${
                                   page + 5 >= data.last_visible_page
                                       ? data.last_visible_page
                                       : page + 5
@@ -106,9 +106,7 @@ export default function Pagination({
                           </Link>
                       ) : (
                           <Link
-                              href={`http://localhost:3000/${route}?page=${
-                                  page + i - 3
-                              }`}
+                              href={`/${route}?page=${page + i - 3}`}
                               key={i}
                               className={`${
                                   page === page + i - 3
@@ -124,7 +122,7 @@ export default function Pagination({
             <Link
                 href={`${
                     data.has_next_page
-                        ? `http://localhost:3000/${route}?page=${
+                        ? `/${route}?page=${
                               page >= data.last_visible_page
                                   ? data.last_visible_page
                                   : data.current_page + 1

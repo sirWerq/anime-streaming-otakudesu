@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
 import Link from "next/link";
 import { Card } from "@/components";
 import { ApiResponse } from "@/models/global";
+import { redirect } from "next/navigation";
 
 export default async function AnimeDetailsPage({
     params,
@@ -9,11 +11,16 @@ export default async function AnimeDetailsPage({
     params: Promise<{ anime_slug: string }>;
 }) {
     const { anime_slug } = await params;
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/anime/${anime_slug}`
-    );
-    const responseJson: ApiResponse = await response.json();
-    const data = responseJson.data;
+    let data;
+    try {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/anime/${anime_slug}`
+        );
+        const responseJson: ApiResponse = await response.json();
+        data = responseJson.data;
+    } catch (err) {
+        redirect(`/not-found`);
+    }
 
     return (
         <div className="pb-20 pt-28 px-4 md:px-16 min-h-svh w-full">
@@ -198,7 +205,11 @@ export default async function AnimeDetailsPage({
                 <h2 className="text-lg font-semibold">Recommendations</h2>
                 <div className="flex flex-wrap gap-4 pb-4">
                     {data.recommendations.map((recommendation) => (
-                        <Card data={recommendation} key={recommendation.slug} />
+                        <Card
+                            data={recommendation}
+                            key={recommendation.slug}
+                            customStyle={null}
+                        />
                     ))}
                 </div>
             </div>

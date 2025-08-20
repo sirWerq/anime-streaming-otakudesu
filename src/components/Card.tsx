@@ -2,12 +2,20 @@ import { CardAnimeHome } from "@/models/global";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Card({ data }: { data: CardAnimeHome }) {
+export default function Card({
+    data,
+    customStyle = null,
+}: {
+    data: CardAnimeHome;
+    customStyle: string | null;
+}) {
     return (
         <Link
             href={`/anime/${data.slug}`}
             key={data.slug}
-            className="group relative flex-shrink-0 w-48 lg:w-56 rounded-md overflow-hidden"
+            className={`${
+                customStyle ? customStyle : "w-48 lg:w-56"
+            } group relative flex-shrink-0 rounded-md overflow-hidden`}
         >
             <Image
                 src={data.poster}
@@ -29,19 +37,45 @@ export default function Card({ data }: { data: CardAnimeHome }) {
                             <p>{data.rating}</p>
                         </div>
                     )}
-                    {data.current_episode || data.episode_count ? (
-                        <div className="flex items-center justify-center bg-primary rounded-full px-2 py-1 text-[10px] sm:text-xs text-black font-semibold">
-                            <p>
-                                {data.current_episode
-                                    ? data.current_episode
-                                    : data.episode_count
-                                    ? `Eps: ${data.episode_count}`
-                                    : null}
-                            </p>
-                        </div>
-                    ) : null}
+                    <div className="flex items-center flex-shrink-0 gap-1">
+                        {data.status && (
+                            <div
+                                className={`flex items-center justify-center ${
+                                    data.status === "Ongoing"
+                                        ? "bg-green-600"
+                                        : "bg-blue-600"
+                                } rounded-full px-2 py-1 text-[10px] sm:text-xs text-white font-semibold`}
+                            >
+                                <p>{data.status}</p>
+                            </div>
+                        )}
+                        {data.current_episode || data.episode_count ? (
+                            <div className="flex items-center justify-center bg-primary rounded-full px-2 py-1 text-[10px] sm:text-xs text-black font-semibold">
+                                <p>
+                                    {data.current_episode
+                                        ? data.current_episode
+                                        : data.episode_count
+                                        ? `Eps: ${data.episode_count}`
+                                        : null}
+                                </p>
+                            </div>
+                        ) : null}
+                    </div>
                 </div>
+
                 <div className="space-y-1">
+                    {data.genres && data.genres.length > 0 && (
+                        <div className="flex flex-wrap items-center gap-1">
+                            {data.genres.map((genre) => (
+                                <span
+                                    key={genre.slug}
+                                    className="text-[10px] sm:text-xs bg-white/20 backdrop-blur-sm rounded-full px-2 py-0.5"
+                                >
+                                    {genre.name}
+                                </span>
+                            ))}
+                        </div>
+                    )}
                     <p className="font-semibold text-sm sm:text-base md:text-lg line-clamp-2">
                         {data.title}
                     </p>

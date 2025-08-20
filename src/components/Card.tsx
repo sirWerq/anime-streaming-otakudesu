@@ -7,7 +7,7 @@ export default function Card({ data }: { data: CardAnimeHome }) {
         <Link
             href={`/anime/${data.slug}`}
             key={data.slug}
-            className="group relative flex-shrink-0 w-36 sm:w-44 md:w-48 lg:w-56 rounded-md overflow-hidden"
+            className="group relative flex-shrink-0 w-48 lg:w-56 rounded-md overflow-hidden"
         >
             <Image
                 src={data.poster}

@@ -1,4 +1,4 @@
-// home
+// Type
 export interface CardAnimeHome {
     title: string;
     slug: string;
@@ -13,7 +13,40 @@ export interface CardAnimeHome {
     release_date?: string;
 }
 
-// details anime
+export interface AnimeDetails {
+    batch: Batch | null;
+    duration: string;
+    episode_count: string;
+    episode_lists: Episode[];
+    genres: Genre[];
+    japanese_title: string;
+    poster: string;
+    produser: string;
+    rating: string;
+    recommendations: Recommendation[];
+    release_date: string;
+    status: string;
+    studio: string;
+    synopsis: string;
+    title: string;
+    type: string;
+}
+
+export interface AnimeStreamingData {
+    episode: string;
+    anime: {
+        slug: string;
+        otakudesu_url: string;
+    };
+    has_next_episode: boolean;
+    next_episode: Episode | null;
+    has_previous_episode: boolean;
+    previous_episode: Episode | null;
+    stream_url: string;
+    download_urls: DownloadUrls;
+}
+
+// SubType
 export interface Episode {
     episode: string;
     otakudesu_url: string;
@@ -39,27 +72,23 @@ export interface Batch {
     otakudesu_url: string;
 }
 
-export interface AnimeDetails {
-    batch: Batch | null;
-    duration: string;
-    episode_count: string;
-    episode_lists: Episode[];
-    genres: Genre[];
-    japanese_title: string;
-    poster: string;
-    produser: string;
-    rating: string;
-    recommendations: Recommendation[];
-    release_date: string;
-    status: string;
-    studio: string;
-    synopsis: string;
-    title: string;
-    type: string;
+interface DownloadUrl {
+    provider: string;
+    url: string;
+}
+
+interface ResolutionGroup {
+    resolution: string;
+    urls: DownloadUrl[];
+}
+
+interface DownloadUrls {
+    mp4: ResolutionGroup[];
+    mkv: ResolutionGroup[];
 }
 
 // API Response Anime
-export interface AnimeDetailsApiResponse {
+export interface ApiResponse {
     status: string;
     data: AnimeDetails;
 }

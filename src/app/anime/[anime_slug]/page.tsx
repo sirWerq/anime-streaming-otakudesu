@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card } from "@/components";
-import { AnimeDetailsApiResponse } from "@/models/global";
+import { ApiResponse } from "@/models/global";
 
 export default async function AnimeDetailsPage({
     params,
@@ -12,7 +12,7 @@ export default async function AnimeDetailsPage({
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/anime/${anime_slug}`
     );
-    const responseJson: AnimeDetailsApiResponse = await response.json();
+    const responseJson: ApiResponse = await response.json();
     const data = responseJson.data;
 
     return (
@@ -160,9 +160,9 @@ export default async function AnimeDetailsPage({
                     <Image
                         src={data.poster}
                         alt={`${data.title} poster`}
-                        width={350}
+                        width={256}
                         height={350}
-                        className="w-64 h-auto md:w-[350px] md:h-auto rounded shadow-xl"
+                        className="w-64 h-auto lg:w-[350px] lg:h-auto rounded shadow-xl"
                         priority
                     />
                 </div>
@@ -196,14 +196,9 @@ export default async function AnimeDetailsPage({
             </div>
             <div className="space-y-1 mt-4">
                 <h2 className="text-lg font-semibold">Recommendations</h2>
-                <div className="flex gap-4 overflow-x-auto pb-4">
+                <div className="flex flex-wrap gap-4 pb-4">
                     {data.recommendations.map((recommendation) => (
-                        <div
-                            key={recommendation.slug}
-                            className="flex-shrink-0"
-                        >
-                            <Card data={recommendation} />
-                        </div>
+                        <Card data={recommendation} key={recommendation.slug} />
                     ))}
                 </div>
             </div>

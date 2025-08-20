@@ -37,9 +37,9 @@ export async function CompletedAnimeDataFetcher() {
 
 export default function Home() {
     return (
-        <div className="pb-20 pt-28 px-4 md:px-16 min-h-svh w-full">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
-                <h1 className="text-xl md:text-2xl font-bold text-center md:text-left">
+        <div className="pb-20 pt-28 px-4 lg:px-16 min-h-svh w-full">
+            <div className="flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-0">
+                <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-center lg:text-left">
                     Selamat Datang di{" "}
                     <span className="text-quaternary">RifqiNime</span>,{" "}
                     <br className="block md:hidden" />

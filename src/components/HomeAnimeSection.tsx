@@ -33,10 +33,10 @@ export default function HomeAnimeSection({
     return (
         <div className="pt-10 space-y-4">
             <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold">{title}</h2>
+                <h2 className="text-lg lg:text-xl font-bold">{title}</h2>
                 <Link
                     href={`/${title.toLowerCase().replace(" ", "-")}`}
-                    className="bg-tertiary rounded px-4 py-1 text-sm"
+                    className="bg-tertiary rounded px-4 py-1 text-sm lg:text-base"
                 >
                     Lihat Selengkapnya
                 </Link>

@@ -34,10 +34,7 @@ export interface AnimeDetails {
 
 export interface AnimeStreamingData {
     episode: string;
-    anime: {
-        slug: string;
-        otakudesu_url: string;
-    };
+    anime: Anime;
     has_next_episode: boolean;
     next_episode: Episode | null;
     has_previous_episode: boolean;
@@ -47,6 +44,11 @@ export interface AnimeStreamingData {
 }
 
 // SubType
+export interface Anime {
+    slug: string;
+    otakudesu_url: string;
+}
+
 export interface Episode {
     episode: string;
     otakudesu_url: string;
@@ -87,8 +89,23 @@ interface DownloadUrls {
     mkv: ResolutionGroup[];
 }
 
+export interface PaginationData {
+    current_page: number;
+    last_visible_page: number;
+    has_next_page: boolean;
+    next_page: number;
+    has_previous_page: boolean;
+    previous_page: number;
+}
+
 // API Response Anime
 export interface ApiResponse {
     status: string;
     data: AnimeDetails;
+}
+
+export interface ApiListResponse {
+    status: string;
+    data: CardAnimeHome[];
+    pagination: PaginationData;
 }

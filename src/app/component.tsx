@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import useSWR from "swr";
 
-import { HomeAnimeSection, Loading } from "@/components";
+import { HomeAnimeSection, LoadingComponent } from "@/components";
 import { HomeApiResponse } from "@/models/global";
 
 const fetcher = async (url: string): Promise<HomeApiResponse> => {
@@ -30,7 +30,7 @@ export default function HomeComponent() {
         }
     };
 
-    if (isLoading) return <Loading />;
+    if (isLoading) return <LoadingComponent />;
 
     if (error || !data) {
         return (

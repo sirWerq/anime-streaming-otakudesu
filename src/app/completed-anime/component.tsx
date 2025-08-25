@@ -4,8 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import { redirect, useSearchParams, useRouter } from "next/navigation";
 import useSWR from "swr";
-import Loading from "../../components/Loading";
-import { Card, Pagination } from "@/components";
+import { Card, Pagination, LoadingComponent } from "@/components";
 import { ApiListResponse, CardAnimeHome } from "@/models/global";
 import { useState } from "react";
 
@@ -25,7 +24,7 @@ export default function CompletedAnimeComponent() {
         fetcher
     );
 
-    if (isLoading) return <Loading />;
+    if (isLoading) return <LoadingComponent />;
 
     if (error || !data) {
         redirect("/not-found");

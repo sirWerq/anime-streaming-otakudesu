@@ -5,8 +5,7 @@ import { useRouter, useSearchParams, redirect } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import useSWR from "swr";
-import Loading from "../../components/Loading";
-import { Card } from "@/components";
+import { Card, LoadingComponent } from "@/components";
 import { ApiListResponse, CardAnimeHome } from "@/models/global";
 
 const fetcher = async (url: string): Promise<ApiListResponse> => {
@@ -28,7 +27,7 @@ export default function SearchComponent() {
         fetcher
     );
 
-    if (isLoading) return <Loading />;
+    if (isLoading) return <LoadingComponent />;
 
     if (error || !data) {
         if (error) redirect("/not-found");

@@ -47,12 +47,13 @@ export default async function AnimeDetailsPage({
                         <h2 className="text-lg font-semibold">Genres</h2>
                         <div className="flex gap-2 flex-wrap">
                             {data.genres.map((genre, index) => (
-                                <div
+                                <Link
+                                    href={`/genres/${genre.name}`}
                                     key={index}
                                     className="rounded bg-quaternary py-2 px-4"
                                 >
                                     <p>{genre.name}</p>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>

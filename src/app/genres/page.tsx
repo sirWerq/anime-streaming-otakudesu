@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Genre } from "@/models/global";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function GenresPage() {
     let datas;
@@ -12,8 +14,7 @@ export default async function GenresPage() {
         const responseJson = await response.json();
         datas = responseJson.data;
     } catch (err) {
-        // redirect(`/not-found`);
-        console.error("Error fetching genres:", err);
+        redirect(`/not-found`);
     }
 
     return (
@@ -21,28 +22,34 @@ export default async function GenresPage() {
             <h1 className="mb-4 text-lg font-bold md:text-xl lg:text-2xl">
                 Genres
             </h1>
-            <div className="grid grid-cols-7 gap-4">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
                 {datas?.map((data: Genre) => (
                     <Link
                         key={data.slug}
                         href={`/anime/genre/${data.slug}`}
-                        className="flex items-center justify-between rounded bg-secondary px-2"
+                        className="flex items-center justify-between rounded bg-secondary p-2"
                     >
                         <div className="flex items-center gap-2">
-                            <Image
-                                src={`/${data.slug}.png`}
-                                alt={`${data.slug} icon`}
-                                width={75}
-                                height={75}
-                            />
-                            {data.name}
+                            <div className="relative h-12 w-12 sm:h-16 sm:w-16">
+                                <Image
+                                    src={`/${data.slug}.svg`}
+                                    alt={`${data.slug} icon`}
+                                    fill
+                                    className="object-contain"
+                                />
+                            </div>
+                            <span className="text-sm font-medium sm:text-base">
+                                {data.name}
+                            </span>
                         </div>
-                        <Image
-                            src="/arrow-right-circle.svg"
-                            alt="open icon"
-                            width={25}
-                            height={25}
-                        />
+                        <div className="relative h-6 w-6">
+                            <Image
+                                src="/arrow-right-circle.svg"
+                                alt="open icon"
+                                fill
+                                className="object-contain"
+                            />
+                        </div>
                     </Link>
                 ))}
             </div>

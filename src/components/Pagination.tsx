@@ -36,7 +36,19 @@ export default function Pagination({
                 />
             </Link>
 
-            {data.last_visible_page <= 5 || page <= 4
+            {data.last_visible_page <= 5
+                ? [...Array(data.last_visible_page)].map((_, i) => (
+                      <Link
+                          href={`/${route}?page=${i + 1}`}
+                          key={i}
+                          className={`${
+                              page === i + 1 ? "text-yellow-600" : "text-black"
+                          } rounded-full bg-secondary w-10 h-10 flex items-center justify-center`}
+                      >
+                          {i + 1}
+                      </Link>
+                  ))
+                : page <= 4
                 ? [...Array(5)].map((_, i) => (
                       <Link
                           href={`/${route}?page=${i + 1}`}

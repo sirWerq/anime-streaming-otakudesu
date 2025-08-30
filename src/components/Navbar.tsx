@@ -79,15 +79,6 @@ export default function Navbar() {
                             Genres
                         </Link>
                     </li>
-                    <li>
-                        <Link
-                            href="/movies-anime"
-                            className="hover:underline"
-                            onClick={toggleMenu}
-                        >
-                            Movies
-                        </Link>
-                    </li>
                 </ul>
             </div>
         </nav>

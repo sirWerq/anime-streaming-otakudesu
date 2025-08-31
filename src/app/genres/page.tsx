@@ -1,8 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Genre } from "@/models/global";
+import { checkString } from "@/utils";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+    title: "Daftar Genre Anime",
+    description: checkString(
+        "Jelajahi berbagai genre anime di RifqiNime. Temukan koleksi anime berdasarkan genre favoritmu, mulai dari Aksi, Petualangan, hingga Sci-Fi."
+    ),
+};
 
 export default async function GenresPage() {
     let datas;
@@ -14,6 +22,7 @@ export default async function GenresPage() {
         const responseJson = await response.json();
         datas = responseJson.data;
     } catch (err) {
+        console.log(err);
         redirect(`/not-found`);
     }
 

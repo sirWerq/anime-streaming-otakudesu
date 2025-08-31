@@ -1,9 +1,45 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
 import Link from "next/link";
 import { Card } from "@/components";
 import { ApiResponse } from "@/models/global";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+import { checkString } from "@/utils";
+
+export async function generateMetadata({
+    params,
+}: {
+    params: { anime_slug: string };
+}): Promise<Metadata> {
+    const { anime_slug } = await params;
+    let data;
+    try {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/anime/${anime_slug}`
+        );
+        const responseJson: ApiResponse = await response.json();
+        data = responseJson.data;
+    } catch (error) {
+        console.error("Failed to fetch anime data for metadata:", error);
+    }
+
+    if (!data) {
+        return {
+            title: "Anime Tidak Ditemukan",
+            description: "Halaman yang Anda cari tidak tersedia di RifqiNime.",
+        };
+    }
+
+    const genres = data.genres.map((genre) => genre.name).join(", ");
+    const description = checkString(
+        `Nonton dan download anime ${data.title} (${data.japanese_title}) sub Indo. Sinopsis, episode lengkap, genre ${genres}, rating ${data.rating}, dan status ${data.status}. Streaming kualitas HD hanya di RifqiNime.`
+    );
+
+    return {
+        title: `${data.title} Sub Indo | Nonton & Download Anime`,
+        description: description,
+    };
+}
 
 export default async function AnimeDetailsPage({
     params,
@@ -19,6 +55,7 @@ export default async function AnimeDetailsPage({
         const responseJson: ApiResponse = await response.json();
         data = responseJson.data;
     } catch (err) {
+        console.log(err);
         redirect(`/not-found`);
     }
 

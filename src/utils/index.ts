@@ -1,3 +1,3 @@
-import { regexEpisode } from "./regex";
+import { checkString } from "./formatString";
 
-export { regexEpisode };
+export { checkString };

@@ -41,7 +41,7 @@ export default function OngoingAnimeComponent() {
         <div className="pb-20 pt-28 px-4 lg:px-16 min-h-svh w-full">
             <div className="flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-0">
                 <h1 className="text-2xl lg:text-3xl font-bold text-center lg:text-left">
-                    OnGoing Anime
+                    Ongoing Anime
                 </h1>
                 <form
                     className="relative w-full md:w-auto"

@@ -68,12 +68,12 @@ export default function OngoingAnimeComponent() {
                     />
                 </form>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-y-10 lg:gap-x-20 gap-2 mt-10">
-                {data.data.map((anime: CardAnimeHome) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-2 gap-y-4 md:gap-x-4 md:gap-y-6 lg:gap-x-6 lg:gap-y-10 mt-10">
+                {data.data.map((anime: CardAnimeHome, index: number) => (
                     <Card
                         data={anime}
                         key={anime.slug}
-                        customStyle={"lg:w-72"}
+                        isPriority={index === 0}
                     />
                 ))}
             </div>

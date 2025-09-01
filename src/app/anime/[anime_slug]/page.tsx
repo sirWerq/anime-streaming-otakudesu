@@ -201,12 +201,13 @@ export default async function AnimeDetailsPage({
                         </div>
                     </div>
                 </div>
-                <div className="mx-auto lg:mx-0 order-1 lg:order-2">
+                <div className="mx-auto lg:mx-0 order-1 lg:order-2 border">
                     <Image
                         src={data.poster}
                         alt={`${data.title} poster`}
                         width={256}
                         height={350}
+                        style={{ width: "auto", height: "100%" }}
                         className="w-64 h-auto lg:w-[350px] lg:h-auto rounded shadow-xl"
                         priority
                     />
@@ -243,11 +244,7 @@ export default async function AnimeDetailsPage({
                 <h2 className="text-lg font-semibold">Recommendations</h2>
                 <div className="flex flex-wrap gap-4 pb-4">
                     {data.recommendations.map((recommendation) => (
-                        <Card
-                            data={recommendation}
-                            key={recommendation.slug}
-                            customStyle={null}
-                        />
+                        <Card data={recommendation} key={recommendation.slug} />
                     ))}
                 </div>
             </div>

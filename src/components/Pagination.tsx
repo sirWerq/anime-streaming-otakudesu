@@ -33,6 +33,8 @@ export default function Pagination({
                     alt="previous"
                     width={8}
                     height={8}
+                    className="p-3"
+                    style={{ width: "auto", height: "100%" }}
                 />
             </Link>
 
@@ -148,7 +150,14 @@ export default function Pagination({
                         : "hover:bg-tertiary"
                 }`}
             >
-                <Image src="/next.svg" alt="next" width={8} height={8} />
+                <Image
+                    src="/next.svg"
+                    alt="next"
+                    width={8}
+                    height={8}
+                    className="p-3"
+                    style={{ width: "auto", height: "100%" }}
+                />
             </Link>
         </>
     );

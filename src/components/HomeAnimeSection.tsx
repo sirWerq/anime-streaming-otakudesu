@@ -46,7 +46,7 @@ export default function HomeAnimeSection({
                 className="flex gap-4 overflow-x-auto no-scrollbar"
             >
                 {data.map((anime) => (
-                    <Card data={anime} key={anime.slug} customStyle={null} />
+                    <Card data={anime} key={anime.slug} isPriority={true} />
                 ))}
             </div>
         </div>

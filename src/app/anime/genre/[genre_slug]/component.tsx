@@ -38,11 +38,11 @@ export default function AnimeByGenreComponent({
                 Genre: <span className="capitalize">{pageTitle}</span>
             </h1>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-y-10 lg:gap-x-20 gap-2 mt-10">
-                {data.data.anime.map((anime: CardAnimeHome) => (
+                {data.data.anime.map((anime: CardAnimeHome, index: number) => (
                     <Card
                         data={anime}
                         key={anime.slug}
-                        customStyle={"lg:w-72"}
+                        isPriority={index === 0}
                     />
                 ))}
             </div>

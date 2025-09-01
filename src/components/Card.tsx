@@ -4,24 +4,25 @@ import Link from "next/link";
 
 export default function Card({
     data,
-    customStyle = null,
+    customStyle,
+    isPriority = false,
 }: {
     data: CardAnimeHome;
-    customStyle: string | null;
+    customStyle?: string | null;
+    isPriority?: boolean;
 }) {
     return (
         <Link
             href={`/anime/${data.slug}`}
             key={data.slug}
-            className={`${
-                customStyle ? customStyle : "w-48 lg:w-56"
-            } group relative flex-shrink-0 rounded-md overflow-hidden`}
+            className={`group relative flex-shrink-0 rounded-md overflow-hidden ${customStyle}`}
         >
             <Image
                 src={data.poster}
                 alt={data.title}
                 width={256}
                 height={384}
+                priority={isPriority}
                 className="w-full h-auto object-cover aspect-[2/3] transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 group-hover:from-black/60 to-transparent p-2 md:p-3 text-white flex flex-col justify-between transition-all duration-300">

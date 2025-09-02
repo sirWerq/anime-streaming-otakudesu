@@ -113,9 +113,6 @@ export interface ApiListResponse {
 }
 
 export interface HomeApiResponse {
-    status: string;
-    data: {
-        ongoing_anime: CardAnimeHome[];
-        complete_anime: CardAnimeHome[];
-    };
+    ongoing_anime: CardAnimeHome[];
+    complete_anime: CardAnimeHome[];
 }

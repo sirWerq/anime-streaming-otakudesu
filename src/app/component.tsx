@@ -3,25 +3,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import axios from "axios";
-import useSWR from "swr";
 
-import { HomeAnimeSection, LoadingComponent } from "@/components";
+import { HomeAnimeSection } from "@/components";
 import { HomeApiResponse } from "@/models/global";
 
-const fetcher = async (url: string): Promise<HomeApiResponse> => {
-    const { data } = await axios.get(url);
-    return data;
-};
-
-export default function HomeComponent() {
+export default function HomeComponent({ datas }: { datas: HomeApiResponse }) {
     const router = useRouter();
     const [querySearch, setQuerySearch] = useState<string>("");
-
-    const { data, error, isLoading } = useSWR<HomeApiResponse>(
-        `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/home`,
-        fetcher
-    );
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -29,16 +17,6 @@ export default function HomeComponent() {
             router.push(`/search?query=${querySearch}`);
         }
     };
-
-    if (isLoading) return <LoadingComponent />;
-
-    if (error || !data) {
-        return (
-            <div className="flex justify-center items-center min-h-svh">
-                Gagal memuat data. Silakan coba lagi nanti.
-            </div>
-        );
-    }
 
     return (
         <div className="pb-20 pt-28 px-4 lg:px-16 min-h-svh w-full">
@@ -77,11 +55,11 @@ export default function HomeComponent() {
             </div>
 
             <HomeAnimeSection
-                data={data.data.ongoing_anime}
+                data={datas.ongoing_anime}
                 title="Ongoing Anime"
             />
             <HomeAnimeSection
-                data={data.data.complete_anime}
+                data={datas.complete_anime}
                 title="Completed Anime"
             />
         </div>

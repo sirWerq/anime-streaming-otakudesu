@@ -20,7 +20,7 @@ export default function CompletedAnimeComponent() {
     const [querySearch, setQuerySearch] = useState<string>("");
 
     const { data, error, isLoading } = useSWR<ApiListResponse>(
-        `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/complete-anime/${page}`,
+        `/api/completed-anime/${page}`,
         fetcher
     );
 

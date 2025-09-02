@@ -22,7 +22,7 @@ export default function AnimeByGenreComponent({
     const page = parseInt(searchParams.get("page") || "1");
 
     const { data, error, isLoading } = useSWR(
-        `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/genres/${genre}/${page}`,
+        `/api/anime/genres/${genre}/${page}`,
         fetcher
     );
 

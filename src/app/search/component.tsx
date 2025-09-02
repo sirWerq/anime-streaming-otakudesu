@@ -21,9 +21,7 @@ export default function SearchComponent() {
     const query = searchParams.get("query");
 
     const { data, error, isLoading } = useSWR<ApiListResponse>(
-        query
-            ? `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/search/${query}`
-            : null,
+        `/api/search/${query}`,
         fetcher
     );
 

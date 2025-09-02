@@ -20,7 +20,7 @@ export default function OngoingAnimeComponent() {
     const [querySearch, setQuerySearch] = useState<string>("");
 
     const { data, error, isLoading } = useSWR<ApiListResponse>(
-        `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/ongoing-anime/${page}`,
+        `/api/ongoing-anime/${page}`,
         fetcher
     );
 

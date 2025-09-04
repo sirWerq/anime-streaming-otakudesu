@@ -1,27 +1,26 @@
-import { Genre } from "@/models/global";
 import type { MetadataRoute } from "next";
 import { headers } from "next/headers";
+import { generateData, generateDataWithPagination } from "@/utils";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const headersList = await headers();
     const host = headersList.get("host");
 
-    let objectGenreSitemap;
-    try {
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL_BE}/v1/genres`
-        );
-        const responseJson = await response.json();
-        const responseGenre = responseJson.data;
-        objectGenreSitemap = responseGenre.map((genre: Genre) => ({
-            url: `https://${host}/anime/genres/${genre}`,
-            lastModified: new Date(),
-            changeFrequency: "daily",
-            priority: 1,
-        }));
-    } catch (err) {
-        console.log(err);
-    }
+    const objectGenreSitemap = await generateData(host);
+    const objectOngoingAnimeSlug = await generateDataWithPagination(
+        host,
+        "anime",
+        "v1/ongoing-anime"
+    );
+    const objectCompleteAnimeSlug = await generateDataWithPagination(
+        host,
+        "anime",
+        "v1/complete-anime"
+    );
+
+    const genreSitemap = objectGenreSitemap || [];
+    const animeOngoingSitemap = objectOngoingAnimeSlug || [];
+    const animeCompleteSitemap = objectCompleteAnimeSlug || [];
 
     return [
         {
@@ -48,7 +47,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: "yearly",
             priority: 0.7,
         },
-        ...objectGenreSitemap,
+        ...genreSitemap,
+        ...animeOngoingSitemap,
+        ...animeCompleteSitemap,
         {
             url: `https://${host}/search`,
             lastModified: new Date(),

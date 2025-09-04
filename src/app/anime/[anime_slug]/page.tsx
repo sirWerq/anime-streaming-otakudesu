@@ -231,7 +231,8 @@ export default async function AnimeDetailsPage({
                 <h2 className="text-lg font-semibold">Batch</h2>
                 {data.batch ? (
                     <Link
-                        href={data.batch ? data.batch.slug : "#"}
+                        // href={data.batch ? data.batch.slug : "#"}
+                        href="#"
                         className={`rounded bg-secondary px-4 h-10 flex w-32 items-center justify-center border hover:bg-quaternary transition-colors`}
                     >
                         Click here

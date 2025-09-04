@@ -27,12 +27,10 @@ export async function generateMetadata({
         };
     }
 
-    const episodeNumber = episode.split("-").pop();
-
     return {
-        title: `Nonton ${data.anime_title} Episode ${episodeNumber} Sub Indo`,
+        title: `Nonton ${data.episode}`,
         description: checkString(
-            `Nonton anime ${data.anime_title} episode ${episodeNumber} subtitle Indonesia secara gratis. Streaming ${data.anime_title} full HD di RifqiNime, situs nonton anime sub Indo terbaik.`
+            `Nonton anime ${data.episode} secara gratis. Streaming ${data.episode} full HD di RifqiNime, situs nonton anime sub Indo terbaik.`
         ),
     };
 }

@@ -18,9 +18,9 @@ export default function AnimeStreamingComponent({
             <h1 className="text-lg md:text-xl lg:text-2xl font-bold mb-4">
                 {data.episode}
             </h1>
-            <div className="flex flex-col xl:flex-row justify-between gap-10">
+            <div className="flex flex-col gap-10">
                 <div className="space-y-4">
-                    <div className="w-full aspect-video rounded-md xl:w-[1180px] xl:h-[600px] bg-black">
+                    <div className="aspect-video rounded-md w-full xl:h-[600px] bg-black">
                         {isPlaying ? (
                             <iframe
                                 src={`${data.stream_url}&autoplay=1`}
@@ -50,8 +50,7 @@ export default function AnimeStreamingComponent({
                             </div>
                         )}
                     </div>
-
-                    <div className="flex gap-4 justify-between xl:justify-end">
+                    <div className="flex gap-4 justify-between lg:justify-end">
                         <Link
                             href={
                                 data.has_previous_episode &&

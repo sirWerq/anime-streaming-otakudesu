@@ -50,7 +50,7 @@ export default function AnimeByGenreComponent({
                 <Pagination
                     page={page}
                     data={data.data.pagination}
-                    route="ongoing-anime"
+                    route={`anime/genre/${genre}`}
                 />
             </div>
         </div>
